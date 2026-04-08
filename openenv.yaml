@@ -1,16 +1,13 @@
 name: task-scheduling-env
-description: RL environment for task scheduling based on priority and deadlines
 version: 1.0
+description: RL environment for scheduling tasks
 
-environment:
-  observation: tasks with deadline and priority
-  action: ordered list of task indices
-  reward: score based on correctness of scheduling
+entry_point: models.py
 
 tasks:
   - name: easy
-    description: schedule 2 tasks
+    description: Schedule 2 tasks
   - name: medium
-    description: schedule 3 tasks
+    description: Schedule 3 tasks
   - name: hard
-    description: schedule 4 tasks
+    description: Schedule 4 tasks

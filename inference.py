@@ -1,25 +1,18 @@
 from models import TaskSchedulingEnv, Action
 
-# Create environment
-env = TaskSchedulingEnv()
+def main():
+    env = TaskSchedulingEnv()
+    obs = env.reset()
 
-# Reset environment
-obs = env.reset()
+    sorted_indices = sorted(
+        range(len(obs.tasks)),
+        key=lambda i: (-obs.tasks[i]["priority"], obs.tasks[i]["deadline"])
+    )
 
-print("Tasks:")
-for i, task in enumerate(obs.tasks):
-    print(f"{i}: {task}")
+    action = Action(order=sorted_indices)
+    _, reward, _, _ = env.step(action)
 
-# Simple baseline: sort by priority & deadline (same logic)
-sorted_indices = sorted(
-    range(len(obs.tasks)),
-    key=lambda i: (-obs.tasks[i]["priority"], obs.tasks[i]["deadline"])
-)
+    print("Reward:", reward)
 
-action = Action(order=sorted_indices)
-
-# Take step
-new_obs, reward, done, info = env.step(action)
-
-print("\nPredicted Order:", sorted_indices)
-print("Reward:", reward)
+if __name__ == "__main__":
+    main()
